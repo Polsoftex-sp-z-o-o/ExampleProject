@@ -27,5 +27,5 @@ jobs:
       - name: Build and push image to container registry
         run: |
           chmod +x gradlew
-          gradlew bootBuildImage --imageName "${{ env.imageRegistry }}/${{ env.imageName }}:latest"
+          ./gradlew bootBuildImage --imageName "${{ env.imageRegistry }}/${{ env.imageName }}:latest"
           docker push ${{ env.imageRegistry }}/${{ env.imageName }}:latest
