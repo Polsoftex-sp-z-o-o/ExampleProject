@@ -2,7 +2,7 @@ name: Deploy
 
 env:
   imageName: "example"
-  imageRegistry: "zdrowejedzeniecontainerregistry.azurecr.io"
+  imageRegistry: "polsoftex.azurecr.io"
 
 on:
   push:
@@ -24,5 +24,5 @@ jobs:
       - name: Build and push image to container registry
         run: |
           chmod +x gradlew
-          gradlew bootBuildImage
+          gradlew bootBuildImage --imageName "${{ env.imageRegistry }}/${{ env.imageName }}:latest"
           docker push ${{ env.imageRegistry }}/${{ env.imageName }}:latest
