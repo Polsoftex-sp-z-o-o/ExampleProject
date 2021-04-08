@@ -17,13 +17,13 @@ jobs:
       - name: Login to Azure Container Registry
         uses: azure/docker-login@v1
         with:
-          login-server: ${{ imageRegistry }}
+          login-server: ${{ env.imageRegistry }}
           username: ${{ secrets.IMAGE_REGISTRY_USERNAME }}
           password: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
 
       - name: Build and push image to registry
         run: |
-          docker build . -t ${{ imageRegistry }}/${{ imageName }}:latest
-          docker push ${{ imageRegistry }}/${{ imageName }}:latest
+          docker build . -t ${{ env.imageRegistry }}/${{ env.imageName }}:latest
+          docker push ${{ env.imageRegistry }}/${{ env.imageName }}:latest
 
       #TODO DEPLOYMENT
