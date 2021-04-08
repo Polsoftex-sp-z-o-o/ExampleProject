@@ -10,4 +10,4 @@ jobs:
       - uses: actions/checkout@v2
 
       # TODO: TEST if this pulls the action
-      - uses: Polsoftex-sp-z-o-o/Actions/test
+      - uses: Polsoftex-sp-z-o-o/Actions/test@main
