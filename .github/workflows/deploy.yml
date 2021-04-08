@@ -21,9 +21,8 @@ jobs:
           username: ${{ secrets.IMAGE_REGISTRY_USERNAME }}
           password: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
 
-      - name: Build and push image to registry
+      - name: Build and push image to container registry
         run: |
-          docker build . -t ${{ env.imageRegistry }}/${{ env.imageName }}:latest
+          chmod +x gradlew
+          gradlew bootBuildImage
           docker push ${{ env.imageRegistry }}/${{ env.imageName }}:latest
-
-      #TODO DEPLOYMENT
