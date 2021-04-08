@@ -22,7 +22,7 @@ jobs:
           password: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
 
       - name: Build and push image to registry
-      - run: |
+        run: |
           docker build . -t ${{ imageRegistry }}/${{ imageName }}:latest
           docker push ${{ imageRegistry }}/${{ imageName }}:latest
 
