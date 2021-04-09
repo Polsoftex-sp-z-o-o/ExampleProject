@@ -2,7 +2,6 @@ name: Deploy
 
 env:
   imageName: "example"
-  imageRegistry: "polsoftex.azurecr.io"
 
 on:
   push:
@@ -10,22 +9,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  buildAndDeploy:
-    runs-on: ubuntu-latest
+  build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+        - name: 'Checkout GitHub Action'
+          uses: actions/checkout@main
+          
+        - name: 'Login via Azure CLI'
+          uses: azure/login@v1
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+        - name: 'Log in to Azure CR'
+          uses: azure/docker-login@v1
+          with:
+            login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+            username: ${{ secrets.REGISTRY_USERNAME }}
+            password: ${{ secrets.REGISTRY_PASSWORD }}
+        
+        - name: 'Build and push image'
+          run: |
+            chmod +x gradlew
+            ./gradlew bootBuildImage --imageName "${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.imageName }}:latest"
+            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.imageName }}:latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-    
-      - name: Login to Azure Container Registry
-        uses: azure/docker-login@v1
-        with:
-          login-server: ${{ env.imageRegistry }}
-          username: ${{ secrets.IMAGE_REGISTRY_USERNAME }}
-          password: ${{ secrets.IMAGE_REGISTRY_PASSWORD }}
-
-      - name: Build and push image to container registry
-        run: |
-          chmod +x gradlew
-          ./gradlew bootBuildImage --imageName "${{ env.imageRegistry }}/${{ env.imageName }}:latest"
-          docker push ${{ env.imageRegistry }}/${{ env.imageName }}:latest
