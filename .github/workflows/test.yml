@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+# TEST
       - run: |
           chmod +x ./gradlew
           ./gradlew test
