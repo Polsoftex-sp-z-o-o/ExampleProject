@@ -9,6 +9,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: |
-          chmod +x ./gradlew
-          ./gradlew test
+      # TODO: TEST if this pulls the action
+      - uses: Polsoftex-sp-z-o-o/Actions/test@main
