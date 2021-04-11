@@ -1,7 +1,9 @@
 name: Deploy
 
 env:
-  imageName: "example"
+  APP_NAME: "exampleproject"
+  REGISTRY_NAME: "polsoftex"
+  IMAGE_PULL_SECRET: "zdrowejedzenie-secret"
 
 on:
   push:
@@ -30,6 +32,39 @@ jobs:
         - name: 'Build and push image'
           run: |
             chmod +x gradlew
-            ./gradlew bootBuildImage --imageName "${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.imageName }}:latest"
-            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.imageName }}:latest
+            ./gradlew bootBuildImage --imageName "${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.APP_NAME }}:latest"
+            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.APP_NAME }}:latest
+            
+        # Set the target Azure Kubernetes Service (AKS) cluster.
+        - name: 'Set target AKS'
+          uses: azure/aks-set-context@v1
+          with:
+            creds: '${{ secrets.AZURE_CREDENTIALS }}'
+            cluster-name: ${{ env.CLUSTER_NAME }}
+            resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+            
+          # Create namespace if doesn't exist
+#         - run: |
+#            kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -   
+    
+#         # Create image pull secret for ACR
+#         - uses: azure/k8s-create-secret@v1
+#           with:
+#             container-registry-url: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+#             container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+#             container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+#             secret-name: ${{ env.IMAGE_PULL_SECRET }}
+#             force: true
+    
+        # Deploy app to AKS
+        - name: 'Deploy to AKS'
+          uses: azure/k8s-deploy@v1
+          with:
+            manifests: |
+              manifests/test.yml
+            images: |
+              ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.APP_NAME }}:latest
+            imagepullsecrets: |
+              ${{ env.IMAGE_PULL_SECRET }}
+            namespace: ${{ env.NAMESPACE }}
 
