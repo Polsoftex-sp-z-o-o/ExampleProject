@@ -3,6 +3,8 @@ name: Deploy
 env:
   APP_NAME: "exampleproject"
   REGISTRY_NAME: "polsoftex"
+  CLUSTER_RESOURCE_GROUP: "polsoftex"
+  CLUSTER_NAME: "polCluster"
   IMAGE_PULL_SECRET: "zdrowejedzenie-secret"
 
 on:
