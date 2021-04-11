@@ -54,6 +54,7 @@ jobs:
 #             container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
 #             container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
 #             secret-name: ${{ env.IMAGE_PULL_SECRET }}
+#             namespace: ${{ env.NAMESPACE }}
 #             force: true
     
         # Deploy app to AKS
@@ -66,5 +67,5 @@ jobs:
               ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.APP_NAME }}:latest
             imagepullsecrets: |
               ${{ env.IMAGE_PULL_SECRET }}
-            namespace: ${{ env.NAMESPACE }}
+#             namespace: ${{ env.NAMESPACE }}
 
