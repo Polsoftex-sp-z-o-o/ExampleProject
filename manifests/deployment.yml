@@ -53,5 +53,5 @@ spec:
         paths:
           - backend:
               serviceName: exampleproject
-              servicePort: 80
+              servicePort: 8080
             path: /
