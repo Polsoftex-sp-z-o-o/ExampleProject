@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 //TODO: A real address
-@FeignClient(name = "ExampleProject2", url = "exampleproject2:8080")
+@FeignClient(name = "ExampleProject2", url = "http://exampleproject2:8080")
 public interface CartClient {
 
     @GetMapping("/cart")
