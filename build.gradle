@@ -12,8 +12,18 @@ bootBuildImage {
 	imageName = "polsoftex.azurecr.io/exampleproject:latest"
 }
 
+ext {
+	set('springCloudVersion', "2020.0.1")
+}
+
 repositories {
 	mavenCentral()
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }
 
 dependencies {
