@@ -24,6 +24,6 @@ public class ExampleController {
 
     @GetMapping("/version")
     public String version() {
-        return "kubectl apply";
+        return "2";
     }
 }
