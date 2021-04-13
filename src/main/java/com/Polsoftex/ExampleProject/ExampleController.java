@@ -19,11 +19,11 @@ public class ExampleController {
 
     @GetMapping("/getCart")
     public String getCart() {
-        try {
         return cartClient.getCart();
-        }
-        catch (Exception e) {
-            return Arrays.toString(e.getStackTrace());
-        }
+    }
+
+    @GetMapping("/version")
+    public String version() {
+        return "kubectl apply";
     }
 }
