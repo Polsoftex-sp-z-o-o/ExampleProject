@@ -72,5 +72,3 @@ jobs:
               ${{ env.IMAGE_PULL_SECRET }}
 #             namespace: ${{ env.NAMESPACE }}
 
-        - name: 'Update pods'
-          run: kubectl apply -f ${{ env.MANIFEST }}
