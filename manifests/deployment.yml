@@ -48,7 +48,7 @@ metadata:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:
   rules:
-    - host: exampleproject.polcluster-dns-799051be.hcp.eastus.azmk8s.io
+    - host: exampleproject.bcb17b143e9244b5a03d.eastus.aksapp.io
       http:
         paths:
           - backend:
