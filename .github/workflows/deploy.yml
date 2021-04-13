@@ -71,6 +71,7 @@ jobs:
             imagepullsecrets: |
               ${{ env.IMAGE_PULL_SECRET }}
 #             namespace: ${{ env.NAMESPACE }}
+
         - name: 'Restart pods'
-          run: kubectl rollout restart deployment ${{ APP_NAME }}
+          run: kubectl rollout restart deployment ${{ env.APP_NAME }}
 
