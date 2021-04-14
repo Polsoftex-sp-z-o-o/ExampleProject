@@ -48,9 +48,9 @@ metadata:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:
   rules:
-    http:
-      paths:
-        - backend:
-            serviceName: exampleproject
-            servicePort: 8080
-          path: /
+    - http:
+        paths:
+          - backend:
+              serviceName: exampleproject
+              servicePort: 8080
+            path: /
