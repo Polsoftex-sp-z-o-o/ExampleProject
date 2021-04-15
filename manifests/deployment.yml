@@ -39,18 +39,3 @@ spec:
   selector:
     app: exampleproject
   type: ClusterIP
----
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: exampleproject
-  annotations:
-    kubernetes.io/ingress.class: addon-http-application-routing
-spec:
-  rules:
-    - http:
-        paths:
-          - backend:
-              serviceName: exampleproject
-              servicePort: 8080
-            path: /
